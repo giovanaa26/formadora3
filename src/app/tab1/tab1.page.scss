@@ -1,0 +1,59 @@
+#container {
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical */
+  align-items: center;     /* horizontal */
+  height: 100%;
+
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+ion-button{
+  --background: linear-gradient(to right, #a212a7, #fb81ff);
+  --color: white;
+  margin-top: 10px; /*adiciona um espaço externo*/
+  width: 100%; /* deixa alinhado com o card */
+}
+
+h1{
+  color: white;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+h3 {
+  color: #777;
+  font-weight: normal;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+hr{
+  width: 80%;
+  border: 0.5px solid #ccc;
+}
+
+img{
+  border-radius: 50%;
+  object-fit: cover;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 10px /*define o espaço na parte inferior de um elemento*/;
+}
+
+
+ion-card {
+  padding: 20px; /* margem interna */
+  border-radius: 20px; /* arrendonda as bordas*/
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15); /*coloca sombra*/
+  width: 90%; /*evita que o card fique muito largo no pc*/
+  max-width: 350px; /*evita que o card fique muito largo no pc*/
+}

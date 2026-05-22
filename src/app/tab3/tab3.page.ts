@@ -1,13 +1,38 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { Component, OnInit} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { list, eyeOff, cart } from 'ionicons/icons';
+import { ProductService, Product } from '../services/product.service';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle,
+    IonCardContent, IonButton, IonIcon, IonSpinner,
+  ],
 })
-export class Tab3Page {
-  constructor() {}
+export class Tab3Page implements OnInit {
+  products: Product[] = [];
+  showList = false;
+  loading = true;
+
+  constructor(private productService: ProductService) {
+    addIcons({ list, eyeOff, cart });
+  }
+
+  async ngOnInit() {
+    await this.productService.loadProducts();
+    this.products = this.productService.products;
+    this.loading = false;
+  }
+
+  toggleList() {
+    this.showList = !this.showList;
+  }
 }

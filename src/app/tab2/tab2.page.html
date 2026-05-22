@@ -1,17 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Produto
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<div *ngIf="loading" class="loading-container">
+  <ion-spinner name="crescent" color="primary"></ion-spinner>
+  <p>Carregando produtos...</p>
+</div>
+
+<ng-container *ngIf="!loading && currentProduct">
+
+  <ion-card class="product-card">
+    <div class="img-container">
+      <img [src]="currentProduct.image" [alt]="currentProduct.title" class="product-img"/>
+    </div>
+
+    <ion-card-header>
+      <ion-card-subtitle>{{ currentProduct.category }} </ion-card-subtitle>
+      <ion-card-title>{{ currentProduct.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p class="description">{{ currentProduct.description}}</p>
+      <div class="footer-row">
+        <span class="price">$ {{ currentProduct.price.toFixed(2) }}</span>
+        <ion-icon name="cart" color="primary" class="cart-icon"></ion-icon>
+      </div>
+      <p class="product-id">ID: {{ currentProduct.id }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="nav-buttons">
+    <ion-button fill="outline" [disabled]="isFirst" (click)="previous()">
+      <ion-icon slot="start" name="chevron-back"></ion-icon>
+      Anterior
+    </ion-button>
+
+    <span class="counter">{{ currentIndex + 1 }} / {{ products.length }}</span>
+
+    <ion-button fill="solid" color="primary" [disabled]="isLast" (click)="next()">
+      Próximo
+      <ion-icon slot="end" name="chevron-forward"></ion-icon>
+    </ion-button>
+  </div>
+</ng-container>
+
 </ion-content>

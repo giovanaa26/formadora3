@@ -1,17 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Todos os Produtos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+ <div *ngIf="loading" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Carregando produtos...</p>
+  </div>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ng-container *ngIf="!loading">
+    <div class="action-row">
+      <ion-button expand="block" fill="solid" color="primary" (click)="toggleList()">
+        <ion-icon slot="start" [name]="showList ? 'eye-off' : 'list'"></ion-icon>
+        {{ showList ? 'Ocultar lista' : 'Mostrar todos os produtos (' + products.length + ')' }}
+      </ion-button>
+    </div>
+
+    <ng-container *ngIf="showList">
+      <ion-card *ngFor="let product of products" class="product-card">
+
+        <div class="img-container">
+          <img [src]="product.image" [alt]="product.title" class="product-img"/>
+        </div>
+
+        <ion-card-header>
+          <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+          <ion-card-title>{{ product.title }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p class="description">{{ product.description }}</p>
+          <div class="footer-row">
+            <span class="product-id">ID: {{ product.id }}</span>
+            <ion-icon name="cart" color="primary" class="cart-icon"></ion-icon>
+          </div>
+        </ion-card-content>
+
+      </ion-card>
+    </ng-container>
+    
+  </ng-container>
 </ion-content>
